@@ -1,0 +1,17 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Datasets
+landmarks_data/train_dataset/gldv2
+landmarks_data/test_dataset
+
+# Models
+*.pt

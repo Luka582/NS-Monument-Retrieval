@@ -1,0 +1,4 @@
+- Image retrieval model trained on a subset of gldv2 dataset, which contains images relevant to monuments
+- Used validation set: https://huggingface.co/datasets/Luka582/Novi-Sad-Monuments
+- Current implementation is an EfficientNetV2-s, which was fine-tuned using ArcFace
+- The model: https://huggingface.co/Luka582/Monument-retrieval
