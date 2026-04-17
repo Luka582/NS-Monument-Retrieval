@@ -15,3 +15,5 @@ landmarks_data/test_dataset
 
 # Models
 *.pt
+*.onnx
+*.onnx.data
