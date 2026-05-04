@@ -2,3 +2,4 @@
 - Used validation set: https://huggingface.co/datasets/Luka582/Novi-Sad-Monuments
 - Current implementation is an EfficientNetV2-s, which was fine-tuned using ArcFace
 - The model: https://huggingface.co/Luka582/Monument-retrieval
+- this branch includes the scripts needed for building the onnx model and the database
