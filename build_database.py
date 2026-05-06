@@ -17,7 +17,7 @@ csv_path = sys.argv[1]
 image_folder_path = sys.argv[2]
 database_path = sys.argv[3]
 
-df = pd.read_csv(csv_path)
+df = pd.read_csv(csv_path, sep=",")
 
 with sqlite3.connect(database_path) as conn:
     cursor = conn.cursor()
@@ -25,7 +25,9 @@ with sqlite3.connect(database_path) as conn:
         """
         CREATE TABLE MONUMENT (
             monument_name VARCHAR(255) PRIMARY KEY,
-            monument_description TEXT
+            monument_description TEXT,
+            monument_name_serbian VARCHAR(255),
+            monument_description_serbian TEXT
         );
         """
     )
@@ -44,8 +46,10 @@ with sqlite3.connect(database_path) as conn:
     for row in df.itertuples():
         monument_name = row.NAME
         monument_description = row.DESCRIPTION
-        query = "INSERT INTO MONUMENT (monument_name, monument_description) VALUES (?, ?)"
-        cursor.execute(query, (monument_name, monument_description))
+        monument_name_serbian = row.IME
+        monument_description_serbian = row.OPIS
+        query = "INSERT INTO MONUMENT (monument_name, monument_description, monument_name_serbian, monument_description_serbian) VALUES (?, ?, ?, ?)"
+        cursor.execute(query, (monument_name, monument_description, monument_name_serbian, monument_description_serbian))
         images_path = image_folder_path + "/" + monument_name.replace(" ", "_")
         for image_name in os.listdir(images_path):
             image_adress = images_path + "/" + image_name

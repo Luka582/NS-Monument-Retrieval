@@ -147,7 +147,6 @@ class TrainDataset(Dataset):
     def __init__(self, train_dataset_path:str, transform=None):
         self.train_dataset_path = train_dataset_path
         self.df = pd.read_csv(f"{train_dataset_path}/image_to_label.csv")
-        # Extract to numpy once at init for fast O(1) access
         self.image_names = self.df["image_name"].values
         self.labels = self.df["label"].values
         self.transform = transform
@@ -169,7 +168,6 @@ class TrainDataset(Dataset):
 class ArcFaceHead(nn.Module):
     def __init__(self, embedding_dim, num_classes, margin=0.3, scale=64):
         super().__init__()
-        # Initialized properly to (num_classes, embedding_dim)
         self.weight = nn.Parameter(torch.randn(num_classes, embedding_dim, dtype=torch.float32))
         nn.init.xavier_uniform_(self.weight)
         self.margin = margin
@@ -181,9 +179,7 @@ class ArcFaceHead(nn.Module):
 
     def forward(self, embeddings, labels):
         embeddings = F.normalize(embeddings, dim=1)
-        # Normalize along embedding dimension, and cast for autocast compatibility
         weights = F.normalize(self.weight, dim=1).to(embeddings.dtype)
-        # Transpose applied
         cos = embeddings @ weights.T
         sin = torch.sqrt(1.0 - torch.pow(cos, 2).clamp(1e-7, 1)).clamp(0, 1)
         phi = cos * self.cos_m - sin * self.sin_m
