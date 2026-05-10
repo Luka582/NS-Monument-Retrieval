@@ -3,3 +3,4 @@
 - Current implementation is an EfficientNetV2-s, which was fine-tuned using ArcFace
 - The model: https://huggingface.co/Luka582/Monument-retrieval
 - this branch includes the scripts needed for building the onnx model and the database
+- article explaining the training process: https://luka582.github.io/NS-Monument-Retrieval/article.pdf
